@@ -69,7 +69,7 @@ export async function login(
   if (error) return { error: INVALID };
 
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/dashboard");
 }
 
 export async function logout() {

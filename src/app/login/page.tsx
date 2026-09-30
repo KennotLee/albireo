@@ -29,7 +29,7 @@ export default async function LoginPage() {
               </div>
               <div className="flex w-full flex-col gap-2.5">
                 <Link
-                  href="/"
+                  href="/dashboard"
                   className="flex h-11 items-center justify-center rounded-full bg-fg text-sm font-medium text-bg transition-opacity hover:opacity-85"
                 >
                   Continue

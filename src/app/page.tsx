@@ -46,12 +46,12 @@ export default async function Home() {
 
         <div className="flex flex-col gap-3 pt-2 sm:flex-row">
           {user ? (
-            <span className="flex h-11 items-center rounded-full border border-gold/40 bg-gold/5 px-5 text-sm">
-              Signed in as{" "}
-              <span className="ml-1.5 font-mono text-[13px] text-gold">
-                {user.email}
-              </span>
-            </span>
+            <Link
+              href="/dashboard"
+              className="flex h-11 items-center justify-center rounded-full bg-fg px-6 text-sm font-medium text-bg transition-opacity hover:opacity-85"
+            >
+              Go to your home page
+            </Link>
           ) : (
             <Link
               href="/login"
