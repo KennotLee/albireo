@@ -10,6 +10,7 @@ import { StarMark } from "@/components/star-mark";
 /** Add a route here and it appears in both the sidebar and the drawer. */
 const NAV = [
   { href: "/dashboard", label: "Home" },
+  { href: "/photos", label: "Photos" },
   { href: "/settings", label: "Settings" },
   { href: "/", label: "About Albireo" },
 ];

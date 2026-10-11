@@ -60,6 +60,14 @@ export default async function Home() {
               Sign in
             </Link>
           )}
+          {!user && (
+            <Link
+              href="/signup"
+              className="flex h-11 items-center justify-center rounded-full border border-border px-6 text-sm font-medium transition-colors hover:border-gold hover:text-gold"
+            >
+              Create an account
+            </Link>
+          )}
           <a
             href="https://en.wikipedia.org/wiki/Albireo"
             target="_blank"

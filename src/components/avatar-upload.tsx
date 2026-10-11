@@ -4,46 +4,11 @@ import { useRef, useState, useTransition } from "react";
 
 import { Avatar } from "@/components/avatar";
 import { saveAvatar } from "@/app/settings/actions";
+import { encodeWebp } from "@/lib/image";
 import { createClient } from "@/lib/supabase/client";
 
 const SIZE = 256;
 const MAX_INPUT_BYTES = 8 * 1024 * 1024;
-
-/**
- * Center-crops to a square and re-encodes at 256px before upload. A phone photo
- * is several megabytes and gets displayed at 36 pixels; this turns it into
- * roughly 30KB, which matters more for perceived speed than anything else here.
- */
-async function toSquareWebp(file: File): Promise<Blob> {
-  const bitmap = await createImageBitmap(file);
-  const edge = Math.min(bitmap.width, bitmap.height);
-
-  const canvas = document.createElement("canvas");
-  canvas.width = SIZE;
-  canvas.height = SIZE;
-
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas is unavailable in this browser.");
-
-  ctx.drawImage(
-    bitmap,
-    (bitmap.width - edge) / 2,
-    (bitmap.height - edge) / 2,
-    edge,
-    edge,
-    0,
-    0,
-    SIZE,
-    SIZE,
-  );
-  bitmap.close();
-
-  const blob = await new Promise<Blob | null>((resolve) =>
-    canvas.toBlob(resolve, "image/webp", 0.85),
-  );
-  if (!blob) throw new Error("Could not process that image.");
-  return blob;
-}
 
 export function AvatarUpload({
   userId,
@@ -77,7 +42,7 @@ export function AvatarUpload({
 
     setBusy(true);
     try {
-      const blob = await toSquareWebp(file);
+      const blob = await encodeWebp(file, { maxEdge: SIZE, square: true });
 
       // A unique name per upload, because a CDN will happily serve the old
       // image for hours if the path stays the same.

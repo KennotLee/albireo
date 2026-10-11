@@ -60,9 +60,17 @@ export default async function LoginPage() {
           )}
         </div>
 
-        <p className="mt-5 text-center text-[11px] text-muted">
-          Accounts are created in the Supabase dashboard for now.
-        </p>
+        {!user && (
+          <p className="mt-5 text-center text-[13px] text-muted">
+            No account yet?{" "}
+            <Link
+              href="/signup"
+              className="font-medium text-fg underline decoration-border underline-offset-4 transition-colors hover:decoration-gold"
+            >
+              Create one
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );
